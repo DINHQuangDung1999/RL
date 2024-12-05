@@ -1,6 +1,6 @@
 #Copied the implementation from here - https://github.com/seungeunrho/minimalRL/blob/master/REINFORCE.py
 
-import gym
+import gymnasium as gym
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -19,26 +19,11 @@ class Policy(nn.Module):
 
         self.fc1 = nn.Linear(dimS, 10)
         self.fc2 = nn.Linear(10, 4)
-        # self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.softmax(self.fc2(x), dim=0)
         return x
-
-    # def put_data(self, item):
-    #     self.data.append(item)
-
-    # def train_net(self):
-    #     R = 0
-    #     self.optimizer.zero_grad()
-    #     loss = torch.tensor(0).float()
-    #     for r, prob in self.data[::-1]:
-    #         R = r + gamma * R
-    #         loss = loss-torch.log(prob) * R
-    #     loss.backward()
-    #     self.optimizer.step()
-    #     self.data = []
 
 def onehot(i, n):
     oh = np.zeros(n)
